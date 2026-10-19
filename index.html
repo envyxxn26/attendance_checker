@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Checking System</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/html5-qrcode" defer></script>
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <img class="brand-logo" src="Catalysta_Logo.png" alt="Catalysta">
+            <p>Attendance Checking System</p>
+
+            <nav>
+                <button class="nav-btn active" data-page="dashboard">
+                    Dashboard
+                </button>
+                <button class="nav-btn" data-page="scanner">
+                    QR Scanner
+                </button>
+                <button class="nav-btn" data-page="nfc">
+                    NFC Scanner
+                </button>
+                <button class="nav-btn" data-page="records">
+                    Attendance Records
+                </button>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div>
+                    <h1 id="page-title">Dashboard</h1>
+                    <p>Manage employee attendance</p>
+                </div>
+                <span id="current-date"></span>
+            </header>
+
+            <section id="dashboard" class="page active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <p>Currently Timed In</p>
+                        <h2 id="currently-in">0</h2>
+                    </div>
+                    <div class="stat-card">
+                        <p>Today's Records</p>
+                        <h2 id="today-records">0</h2>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h2>Recent Attendance</h2>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Employee Code</th>
+                                    <th>Name</th>
+                                    <th>Time In</th>
+                                    <th>Time Out</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-records"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="scanner" class="page">
+                <section class="panel scanner-panel qr-panel">
+                    <h2>QR Code Scanner</h2>
+                    <p>Scan an employee QR code with your camera.</p>
+
+                    <fieldset class="scan-mode">
+                        <legend>Scan action</legend>
+                        <label>
+                            <input type="radio" name="scan-mode" value="in" checked>
+                            <span>Time In</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="scan-mode" value="out">
+                            <span>Time Out</span>
+                        </label>
+                    </fieldset>
+                    <p id="scan-mode-sign" aria-live="polite">Selected action: Time In</p>
+                    <div id="qr-reader"></div>
+                    <div id="scan-result" role="status"></div>
+                </section>
+            </section>
+
+            <section id="nfc" class="page">
+                <section class="panel nfc-panel">
+                    <h2>NFC Scanner</h2>
+                    <p>Tap an NFC tag containing the employee code as a text record. NFC scans automatically alternate between Time In and Time Out. Attendance is saved with the same records as QR scans.</p>
+                    <button id="nfc-start-button" type="button">Start NFC Scanning</button>
+                    <p id="nfc-status" role="status">NFC scanning is stopped.</p>
+                    <div id="nfc-result" role="status"></div>
+                </section>
+            </section>
+
+            <section id="records" class="page">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h2>Attendance Records</h2>
+                        <button id="export-csv">Export CSV</button>
+                    </div>
+
+                    <div class="filters">
+                        <input
+                            type="text"
+                            id="record-search"
+                            placeholder="Search employee code or name"
+                        >
+                        <input type="date" id="record-date">
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Employee Code</th>
+                                    <th>Name</th>
+                                    <th>Time In</th>
+                                    <th>Time Out</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="records-list"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <footer>
+                <p>Attendance Checking System</p>
+            </footer>
+        </main>
+    </div>
+
+    <dialog id="share-dialog" aria-labelledby="share-dialog-title">
+        <h2 id="share-dialog-title">Share attendance CSV?</h2>
+        <p>Your CSV file has been downloaded. Would you like to share it?</p>
+        <p id="share-status" role="status"></p>
+        <div class="dialog-actions">
+            <button id="dismiss-share-button" type="button">No thanks</button>
+            <button id="share-csv-button" type="button">Share CSV</button>
+        </div>
+    </dialog>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
