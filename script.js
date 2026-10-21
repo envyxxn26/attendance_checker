@@ -465,6 +465,14 @@
             elements.scanResult.textContent = "";
         });
     });
+    const manualForm = document.getElementById("manual-entry-form");
+    const manualInput = document.getElementById("manual-employee-id");
+    manualForm.addEventListener("submit", event => {
+        event.preventDefault();
+        processScan(manualInput.value, "auto", document.getElementById("manual-result"));
+        manualInput.value = "";
+        manualInput.focus();
+    });
     elements.recordSearch.addEventListener("input", renderRecords);
     elements.recordDate.addEventListener("change", renderRecords);
     elements.exportButton.addEventListener("click", exportCsv);

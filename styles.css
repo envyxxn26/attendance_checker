@@ -773,3 +773,8 @@ dialog#share-dialog::backdrop {
         animation-iteration-count: 1 !important;
     }
 }
+.manual-entry { margin-top: 1rem; }
+.manual-entry label { display: block; margin-bottom: 0.5rem; }
+.manual-entry-row { display: flex; gap: 0.5rem; }
+.manual-entry-row input { flex: 1; padding: 0.5rem; }
+#manual-result:not(:empty) { margin-top: 0.75rem; padding: 0.75rem; border-radius: 6px; }

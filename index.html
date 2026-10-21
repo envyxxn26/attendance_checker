@@ -88,6 +88,15 @@
                     <p id="scan-mode-sign" aria-live="polite">Selected action: Time In</p>
                     <div id="qr-reader"></div>
                     <div id="scan-result" role="status"></div>
+
+                    <form id="manual-entry-form" class="manual-entry">
+                        <label for="manual-employee-id">Or enter employee ID (automatically times in or out)</label>
+                        <div class="manual-entry-row">
+                            <input type="text" id="manual-employee-id" placeholder="Employee ID" autocomplete="off" required>
+                            <button type="submit">Submit</button>
+                        </div>
+                    </form>
+                    <div id="manual-result" role="status"></div>
                 </section>
             </section>
 
